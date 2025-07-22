@@ -10,6 +10,11 @@ import { Login } from "@/pages/Login";
 import { Register } from "@/pages/Register";
 import { Dashboard } from "@/pages/Dashboard";
 import { Tests } from "@/pages/Tests";
+import { Profile } from "@/pages/Profile";
+import { Settings } from "@/pages/Settings";
+import { Results } from "@/pages/Results";
+import { Manage } from "@/pages/Manage";
+import { TestDetail } from "@/pages/TestDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,11 +61,11 @@ const AppRoutes = () => {
         {/* Protected Routes */}
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/tests" element={<ProtectedRoute><Tests /></ProtectedRoute>} />
-        <Route path="/test/:id" element={<ProtectedRoute><div>Test Page Coming Soon</div></ProtectedRoute>} />
-        <Route path="/results" element={<ProtectedRoute><div>Results Page Coming Soon</div></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><div>Profile Page Coming Soon</div></ProtectedRoute>} />
-        <Route path="/settings" element={<ProtectedRoute><div>Settings Page Coming Soon</div></ProtectedRoute>} />
-        <Route path="/manage" element={<ProtectedRoute><div>Manage Page Coming Soon</div></ProtectedRoute>} />
+        <Route path="/test/:id" element={<ProtectedRoute><TestDetail /></ProtectedRoute>} />
+        <Route path="/results" element={<ProtectedRoute><Results /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+        <Route path="/manage" element={<ProtectedRoute><Manage /></ProtectedRoute>} />
         
         {/* 404 Route */}
         <Route path="*" element={<NotFound />} />

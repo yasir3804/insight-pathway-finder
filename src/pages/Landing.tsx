@@ -121,7 +121,7 @@ export const Landing = () => {
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link to="/demo">View Demo</Link>
+                  <Link to="/tests">View Tests</Link>
                 </Button>
               </div>
 

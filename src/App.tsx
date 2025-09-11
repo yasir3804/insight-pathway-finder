@@ -16,6 +16,16 @@ import { Results } from "@/pages/Results";
 import { Manage } from "@/pages/Manage";
 import { TestDetail } from "@/pages/TestDetail";
 import NotFound from "./pages/NotFound";
+import { AdminLayout } from "@/components/admin/AdminLayout";
+import { AdminDashboard } from "@/pages/admin/AdminDashboard";
+import { UserManagement } from "@/pages/admin/UserManagement";
+import { QuestionAssignment } from "@/pages/admin/QuestionAssignment";
+import { SystemAnalytics } from "@/pages/admin/SystemAnalytics";
+import { Scholarships } from "@/pages/admin/Scholarships";
+import { ContentManagement } from "@/pages/admin/ContentManagement";
+import { FeedbackManagement } from "@/pages/admin/FeedbackManagement";
+import { SystemLogs } from "@/pages/admin/SystemLogs";
+import { AdminProfile } from "@/pages/admin/AdminProfile";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +76,15 @@ const AppRoutes = () => {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
         <Route path="/manage" element={<ProtectedRoute><Manage /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/admin/users" element={<ProtectedRoute><UserManagement /></ProtectedRoute>} />
+        <Route path="/admin/questions" element={<ProtectedRoute><QuestionAssignment /></ProtectedRoute>} />
+        <Route path="/admin/analytics" element={<ProtectedRoute><SystemAnalytics /></ProtectedRoute>} />
+        <Route path="/admin/scholarships" element={<ProtectedRoute><Scholarships /></ProtectedRoute>} />
+        <Route path="/admin/content" element={<ProtectedRoute><ContentManagement /></ProtectedRoute>} />
+        <Route path="/admin/feedback" element={<ProtectedRoute><FeedbackManagement /></ProtectedRoute>} />
+        <Route path="/admin/logs" element={<ProtectedRoute><SystemLogs /></ProtectedRoute>} />
+        <Route path="/admin/profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
         
         {/* 404 Route */}
         <Route path="*" element={<NotFound />} />

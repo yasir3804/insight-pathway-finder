@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { User, AuthState } from '@/types/auth';
 
 interface AuthContextType extends AuthState {
+  profile: { role: string; full_name: string } | null;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name: string, role: string) => Promise<void>;
   logout: () => void;
@@ -143,6 +144,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   return (
     <AuthContext.Provider value={{
       ...state,
+      profile: state.user ? { role: state.user.role, full_name: state.user.name } : null,
       login,
       register,
       logout,

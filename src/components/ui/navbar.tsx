@@ -136,7 +136,7 @@ export const Navbar = () => {
                   <Link to="/login">Login</Link>
                 </Button>
                 <Button asChild>
-                  <Link to="/register">Get Started</Link>
+                  <Link to="/role-selection">Get Started</Link>
                 </Button>
               </div>
             )}

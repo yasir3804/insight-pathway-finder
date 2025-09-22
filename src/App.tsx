@@ -8,6 +8,10 @@ import { Layout } from "@/components/layout/Layout";
 import { Landing } from "@/pages/Landing";
 import { Login } from "@/pages/Login";
 import { Register } from "@/pages/Register";
+import { RoleSelection } from "@/pages/RoleSelection";
+import { StudentRegister } from "@/pages/StudentRegister";
+import { CounselorRegister } from "@/pages/CounselorRegister";
+import { ProfessionalRegister } from "@/pages/ProfessionalRegister";
 import { Dashboard } from "@/pages/Dashboard";
 import { Tests } from "@/pages/Tests";
 import { Profile } from "@/pages/Profile";
@@ -81,6 +85,10 @@ const AppRoutes = () => {
         <Route path="/" element={<PublicRoute><Landing /></PublicRoute>} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+        <Route path="/role-selection" element={<PublicRoute><RoleSelection /></PublicRoute>} />
+        <Route path="/register/student" element={<PublicRoute><StudentRegister /></PublicRoute>} />
+        <Route path="/register/counselor" element={<PublicRoute><CounselorRegister /></PublicRoute>} />
+        <Route path="/register/professional" element={<PublicRoute><ProfessionalRegister /></PublicRoute>} />
         
         {/* Protected Routes */}
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

@@ -275,7 +275,7 @@ export const Landing = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" className="shadow-lg" asChild>
-              <Link to="/register">
+              <Link to="/role-selection">
                 <Award className="mr-2 h-5 w-5" />
                 Start Your Journey
               </Link>

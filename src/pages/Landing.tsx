@@ -91,90 +91,131 @@ export const Landing = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section className="relative overflow-hidden py-24 lg:py-32">
+        <div className="absolute inset-0 bg-gradient-hero"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,hsl(var(--primary)/0.1),transparent_50%)] animate-float"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,hsl(var(--secondary)/0.08),transparent_50%)]"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8 animate-fade-in">
-              <div className="space-y-4">
-                <Badge variant="secondary" className="w-fit">
-                  <Sparkles className="h-3 w-3 mr-1" />
-                  AI-Powered Assessment Platform
+              <div className="space-y-6">
+                <Badge variant="secondary" className="w-fit px-4 py-2 text-sm font-medium shadow-soft">
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  Next-Gen AI Assessment Platform
                 </Badge>
-                <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+                
+                <h1 className="text-5xl md:text-7xl font-bold leading-[0.9] tracking-tight">
                   Unlock Your{" "}
-                  <span className="bg-gradient-primary bg-clip-text text-transparent">
-                    Potential
-                  </span>{" "}
-                  with Smart Testing
+                  <span className="relative">
+                    <span className="bg-gradient-primary bg-clip-text text-transparent">
+                      True Potential
+                    </span>
+                    <div className="absolute -bottom-2 left-0 right-0 h-3 bg-gradient-primary/20 blur-sm"></div>
+                  </span>
                 </h1>
-                <p className="text-xl text-muted-foreground max-w-2xl">
-                  Comprehensive psychometric assessments powered by AI. Discover your strengths, 
-                  understand your personality, and get personalized career recommendations.
+                
+                <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
+                  Revolutionary psychometric assessments powered by advanced AI. Discover your unique strengths, 
+                  decode your personality, and receive personalized career guidance that transforms your future.
                 </p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="shadow-elegant" asChild>
-                  <Link to="/register">
-                    Start Free Assessment
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                <Button size="lg" className="text-lg px-8 py-4 shadow-elegant hover:shadow-soft transition-all duration-300 hover:scale-105" asChild>
+                  <Link to="/role-selection">
+                    Start Your Journey
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link to="/tests">View Tests</Link>
+                <Button size="lg" variant="outline" className="text-lg px-8 py-4 border-2 hover:bg-muted/50" asChild>
+                  <Link to="/tests">Explore Tests</Link>
                 </Button>
               </div>
 
-              <div className="flex items-center space-x-8 text-sm text-muted-foreground">
-                <div className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-success mr-2" />
-                  Free to start
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+                <div className="flex items-center space-x-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-success/10 flex items-center justify-center">
+                    <CheckCircle className="h-5 w-5 text-success" />
+                  </div>
+                  <span className="text-sm font-medium">Free to start</span>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-success mr-2" />
-                  No credit card required
+                <div className="flex items-center space-x-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-success/10 flex items-center justify-center">
+                    <CheckCircle className="h-5 w-5 text-success" />
+                  </div>
+                  <span className="text-sm font-medium">Instant AI insights</span>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-success mr-2" />
-                  Instant results
+                <div className="flex items-center space-x-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-success/10 flex items-center justify-center">
+                    <CheckCircle className="h-5 w-5 text-success" />
+                  </div>
+                  <span className="text-sm font-medium">Scientifically validated</span>
                 </div>
               </div>
             </div>
 
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-primary opacity-20 blur-3xl rounded-full animate-float"></div>
-              <img 
-                src={heroImage} 
-                alt="People taking psychometric assessments"
-                className="relative z-10 rounded-2xl shadow-elegant w-full h-auto animate-scale-in"
-              />
+            <div className="relative lg:h-[600px] flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-primary opacity-10 blur-3xl rounded-full animate-float"></div>
+              <div className="absolute -top-10 -right-10 w-72 h-72 bg-gradient-secondary opacity-10 rounded-full blur-2xl animate-float" style={{animationDelay: '1s'}}></div>
+              <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-gradient-primary opacity-10 rounded-full blur-2xl animate-float" style={{animationDelay: '2s'}}></div>
+              
+              <div className="relative z-10 w-full max-w-lg">
+                <img 
+                  src={heroImage} 
+                  alt="Advanced psychometric assessment platform interface"
+                  className="w-full h-auto rounded-3xl shadow-elegant hover:shadow-soft transition-all duration-500 hover:scale-105"
+                />
+                <div className="absolute -top-6 -left-6 w-12 h-12 bg-primary rounded-2xl flex items-center justify-center shadow-elegant animate-float">
+                  <Brain className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-secondary rounded-2xl flex items-center justify-center shadow-elegant animate-float" style={{animationDelay: '1.5s'}}>
+                  <TrendingUp className="h-6 w-6 text-secondary-foreground" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl font-bold">Why Choose PsychoMetrics?</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Our platform combines cutting-edge technology with scientific rigor to deliver 
-              the most accurate and insightful psychometric assessments available.
+      <section className="py-24 lg:py-32 bg-muted/30 relative">
+        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,hsl(var(--primary)/0.02)_50%,transparent_75%)]"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-6 mb-20">
+            <Badge variant="outline" className="px-4 py-2 text-sm font-medium">
+              <Shield className="h-4 w-4 mr-2" />
+              Enterprise-Grade Platform
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight">
+              Why Leading Organizations Choose{" "}
+              <span className="bg-gradient-primary bg-clip-text text-transparent">PsychoMetrics</span>
+            </h2>
+            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Our platform combines cutting-edge AI technology with decades of psychological research 
+              to deliver the most accurate and actionable insights available.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="group hover:shadow-soft transition-all duration-300 hover:-translate-y-1">
-                <CardHeader>
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <feature.icon className="h-6 w-6 text-primary" />
+              <Card key={index} className="group hover:shadow-elegant transition-all duration-500 hover:-translate-y-2 border-0 bg-card/80 backdrop-blur-sm">
+                <CardHeader className="pb-4">
+                  <div className="relative">
+                    <div className="h-16 w-16 rounded-2xl bg-gradient-primary/10 flex items-center justify-center mb-6 group-hover:bg-gradient-primary/20 transition-all duration-300 group-hover:scale-110">
+                      <feature.icon className="h-8 w-8 text-primary group-hover:text-primary-glow transition-colors" />
+                    </div>
+                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-gradient-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  <CardTitle className="text-xl lg:text-2xl font-bold group-hover:text-primary transition-colors">
+                    {feature.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base">{feature.description}</CardDescription>
+                  <CardDescription className="text-base lg:text-lg leading-relaxed">
+                    {feature.description}
+                  </CardDescription>
                 </CardContent>
               </Card>
             ))}
@@ -266,23 +307,68 @@ export const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 space-y-8">
-          <h2 className="text-4xl font-bold">Ready to Discover Your Potential?</h2>
-          <p className="text-xl opacity-90 max-w-2xl mx-auto">
-            Join thousands of individuals who have already unlocked their potential 
-            with our AI-powered psychometric assessments.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="shadow-lg" asChild>
+      <section className="relative py-24 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-primary"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,hsl(var(--primary)/0.1)_100%)]"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-glow/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+        
+        <div className="relative max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="space-y-6">
+            <Badge variant="secondary" className="bg-primary-foreground/10 text-primary-foreground border-primary-foreground/20 px-4 py-2">
+              <Sparkles className="h-4 w-4 mr-2" />
+              Transform Your Future Today
+            </Badge>
+            
+            <h2 className="text-4xl lg:text-6xl font-bold text-primary-foreground leading-tight">
+              Ready to Unlock Your{" "}
+              <span className="relative">
+                True Potential?
+                <div className="absolute -bottom-2 left-0 right-0 h-2 bg-primary-foreground/30 blur-sm"></div>
+              </span>
+            </h2>
+            
+            <p className="text-xl lg:text-2xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
+              Join over <span className="font-bold text-primary-foreground">50,000+</span> individuals and organizations 
+              who have transformed their lives with our revolutionary AI-powered assessments.
+            </p>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <Button size="lg" variant="secondary" className="text-lg px-10 py-4 shadow-elegant hover:shadow-soft transition-all duration-300 hover:scale-105" asChild>
               <Link to="/role-selection">
-                <Award className="mr-2 h-5 w-5" />
-                Start Your Journey
+                <Award className="mr-3 h-6 w-6" />
+                Begin Your Journey
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
-              <Link to="/contact">Contact Sales</Link>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="text-lg px-10 py-4 border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:border-primary-foreground backdrop-blur-sm" 
+              asChild
+            >
+              <Link to="/contact">
+                <Users className="mr-3 h-6 w-6" />
+                Enterprise Solutions
+              </Link>
             </Button>
+          </div>
+          
+          <div className="pt-8 flex justify-center items-center space-x-8 text-primary-foreground/80">
+            <div className="text-center">
+              <div className="text-2xl font-bold">50K+</div>
+              <div className="text-sm">Happy Users</div>
+            </div>
+            <div className="h-8 w-px bg-primary-foreground/30"></div>
+            <div className="text-center">
+              <div className="text-2xl font-bold">95%</div>
+              <div className="text-sm">Accuracy Rate</div>
+            </div>
+            <div className="h-8 w-px bg-primary-foreground/30"></div>
+            <div className="text-center">
+              <div className="text-2xl font-bold">4.9★</div>
+              <div className="text-sm">User Rating</div>
+            </div>
           </div>
         </div>
       </section>

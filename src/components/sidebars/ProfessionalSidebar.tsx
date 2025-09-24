@@ -1,14 +1,24 @@
 import { NavLink, useLocation } from "react-router-dom";
-import {
-  LayoutDashboard,
-  Users,
-  BarChart3,
-  User,
-  Settings,
-  Briefcase,
+import { 
+  LayoutDashboard, 
+  Building, 
+  Users, 
+  BarChart3, 
+  Settings, 
+  FileText,
+  Target,
+  TrendingUp,
+  UserCheck,
+  Award,
+  Calendar,
   MessageSquare,
+  Shield,
+  Database,
+  HelpCircle,
+  LogOut,
+  Briefcase,
+  ClipboardCheck
 } from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -16,8 +26,8 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuButton,
   useSidebar,
 } from "@/components/ui/sidebar";
 
@@ -26,79 +36,112 @@ const professionalMenuItems = [
     title: "Dashboard",
     url: "/dashboard",
     icon: LayoutDashboard,
-    color: "text-primary",
+    color: "text-primary"
   },
   {
-    title: "Mentorship",
-    url: "/mentorship",
+    title: "Organization",
+    url: "/manage",
+    icon: Building,
+    color: "text-secondary"
+  },
+  {
+    title: "Employee Management",
+    url: "/employees",
     icon: Users,
-    color: "text-secondary",
+    color: "text-accent"
   },
   {
-    title: "Industry Insights",
-    url: "/insights",
+    title: "Assessment Programs",
+    url: "/programs",
+    icon: ClipboardCheck,
+    color: "text-warning"
+  },
+  {
+    title: "Analytics & Reports",
+    url: "/analytics",
     icon: BarChart3,
-    color: "text-success",
+    color: "text-success"
   },
   {
-    title: "Career Opportunities",
-    url: "/opportunities",
+    title: "Performance Tracking",
+    url: "/performance",
+    icon: TrendingUp,
+    color: "text-primary"
+  },
+  {
+    title: "Talent Pipeline",
+    url: "/talent",
+    icon: Target,
+    color: "text-secondary"
+  },
+  {
+    title: "HR Integration",
+    url: "/hr-integration",
     icon: Briefcase,
-    color: "text-accent",
+    color: "text-accent"
   },
   {
-    title: "Messages",
-    url: "/messages",
+    title: "Team Assessments",
+    url: "/team-assessments",
+    icon: UserCheck,
+    color: "text-warning"
+  },
+  {
+    title: "Certifications",
+    url: "/certifications",
+    icon: Award,
+    color: "text-success"
+  },
+  {
+    title: "Scheduling",
+    url: "/scheduling",
+    icon: Calendar,
+    color: "text-primary"
+  },
+  {
+    title: "Communications",
+    url: "/communications",
     icon: MessageSquare,
-    color: "text-warning",
-  },
-  {
-    title: "Profile",
-    url: "/profile",
-    icon: User,
-    color: "text-warning",
-  },
-  {
-    title: "Settings",
-    url: "/settings",
-    icon: Settings,
-    color: "text-muted-foreground",
-  },
+    color: "text-secondary"
+  }
 ];
 
 export function ProfessionalSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
+  const currentPath = location.pathname;
 
-  const isActive = (path: string) => location.pathname === path;
-
-  const getNavClassName = (active: boolean) =>
-    active
-      ? "bg-primary/10 text-primary font-medium border-r-2 border-primary"
-      : "hover:bg-muted/50 text-muted-foreground hover:text-foreground";
+  const isActive = (path: string) => currentPath === path || currentPath.startsWith(path);
 
   return (
     <Sidebar className={state === "collapsed" ? "w-16" : "w-64"} collapsible="icon">
-      <SidebarContent className="bg-background">
+      <SidebarContent className="bg-sidebar">
         <SidebarGroup>
-          <SidebarGroupLabel className={state === "collapsed" ? "px-2" : "px-4"}>
-            {state !== "collapsed" && "Professional Portal"}
+          <SidebarGroupLabel className="text-sidebar-foreground/70 font-semibold text-xs uppercase tracking-wider px-3 py-2">
+            Professional Portal
           </SidebarGroupLabel>
-          
-          <SidebarGroupContent className="mt-2">
-            <SidebarMenu>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
               {professionalMenuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink
-                      to={item.url}
-                      className={({ isActive }) => 
-                        `flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${getNavClassName(isActive)}`
+                  <SidebarMenuButton 
+                    asChild 
+                    isActive={isActive(item.url)}
+                    className={`
+                      transition-all duration-200 hover:bg-sidebar-accent group
+                      ${isActive(item.url) 
+                        ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium shadow-sm' 
+                        : 'text-sidebar-foreground hover:text-sidebar-accent-foreground'
                       }
-                    >
-                      <item.icon className={`h-5 w-5 ${item.color}`} />
+                    `}
+                  >
+                    <NavLink to={item.url} className="flex items-center gap-3 px-3 py-2.5 rounded-lg">
+                      <item.icon 
+                        className={`h-5 w-5 ${isActive(item.url) ? item.color : 'text-sidebar-foreground/70'} 
+                          group-hover:scale-110 transition-transform duration-200`} 
+                      />
                       {state !== "collapsed" && (
-                        <span className="font-medium">{item.title}</span>
+                        <span className="text-sm font-medium">{item.title}</span>
                       )}
                     </NavLink>
                   </SidebarMenuButton>
@@ -107,6 +150,62 @@ export function ProfessionalSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* Management Section */}
+        {state !== "collapsed" && (
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-sidebar-foreground/70 font-semibold text-xs uppercase tracking-wider px-3 py-2">
+              Management
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu className="space-y-1">
+                <SidebarMenuItem>
+                  <SidebarMenuButton className="text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent">
+                    <Database className="h-4 w-4" />
+                    <span className="text-sm">Data Export</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton className="text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent">
+                    <Shield className="h-4 w-4" />
+                    <span className="text-sm">Security</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton className="text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent">
+                    <Settings className="h-4 w-4" />
+                    <span className="text-sm">Settings</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+
+        {/* Quick Actions Section */}
+        {state !== "collapsed" && (
+          <SidebarGroup className="mt-auto">
+            <SidebarGroupLabel className="text-sidebar-foreground/70 font-semibold text-xs uppercase tracking-wider px-3 py-2">
+              Quick Actions
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu className="space-y-1">
+                <SidebarMenuItem>
+                  <SidebarMenuButton className="text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent">
+                    <HelpCircle className="h-4 w-4" />
+                    <span className="text-sm">Help & Support</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton className="text-destructive hover:text-destructive-foreground hover:bg-destructive/10">
+                    <LogOut className="h-4 w-4" />
+                    <span className="text-sm">Sign Out</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
     </Sidebar>
   );

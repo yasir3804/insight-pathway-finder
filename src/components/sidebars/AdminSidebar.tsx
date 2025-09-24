@@ -1,18 +1,19 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { 
   LayoutDashboard, 
-  BookOpen, 
+  Users, 
+  Settings, 
   BarChart3, 
-  User, 
-  Award, 
-  Calendar,
-  Target,
-  TrendingUp,
-  Brain,
-  MessageCircle,
-  Settings,
-  HelpCircle,
-  LogOut
+  FileText, 
+  Shield, 
+  HelpCircle, 
+  LogOut,
+  BookOpen,
+  MessageSquare,
+  GraduationCap,
+  Award,
+  Activity,
+  Database
 } from "lucide-react";
 import {
   Sidebar,
@@ -26,70 +27,70 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-const studentMenuItems = [
+const adminMenuItems = [
   {
     title: "Dashboard",
-    url: "/dashboard",
+    url: "/admin/dashboard",
     icon: LayoutDashboard,
     color: "text-primary"
   },
   {
-    title: "Take Tests",
-    url: "/tests",
-    icon: Brain,
+    title: "User Management",
+    url: "/admin/users",
+    icon: Users,
     color: "text-secondary"
   },
   {
-    title: "My Results",
-    url: "/results",
-    icon: BarChart3,
+    title: "Content Management",
+    url: "/admin/content",
+    icon: BookOpen,
     color: "text-accent"
   },
   {
-    title: "Learning Path",
-    url: "/learning",
-    icon: BookOpen,
+    title: "Question Assignment",
+    url: "/admin/questions",
+    icon: FileText,
     color: "text-warning"
   },
   {
-    title: "Career Guidance",
-    url: "/career",
-    icon: Target,
+    title: "System Analytics",
+    url: "/admin/analytics",
+    icon: BarChart3,
     color: "text-success"
-  },
-  {
-    title: "Progress Tracking",
-    url: "/progress",
-    icon: TrendingUp,
-    color: "text-primary"
   },
   {
     title: "Scholarships",
-    url: "/scholarships",
+    url: "/admin/scholarships",
     icon: Award,
+    color: "text-primary"
+  },
+  {
+    title: "Feedback Management",
+    url: "/admin/feedback",
+    icon: MessageSquare,
     color: "text-secondary"
   },
   {
-    title: "Schedule",
-    url: "/schedule",
-    icon: Calendar,
+    title: "System Logs",
+    url: "/admin/logs",
+    icon: Activity,
     color: "text-accent"
   },
   {
-    title: "Messages",
-    url: "/messages",
-    icon: MessageCircle,
-    color: "text-warning"
+    title: "Security",
+    url: "/admin/security",
+    icon: Shield,
+    color: "text-destructive"
   },
   {
-    title: "Profile",
-    url: "/profile",
-    icon: User,
-    color: "text-success"
+    title: "Settings",
+    url: "/admin/settings",
+    icon: Settings,
+    color: "text-muted-foreground"
   }
 ];
 
-export function StudentSidebar() {
+export function AdminSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
@@ -101,11 +102,11 @@ export function StudentSidebar() {
       <SidebarContent className="bg-sidebar">
         <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground/70 font-semibold text-xs uppercase tracking-wider px-3 py-2">
-            Student Portal
+            Admin Panel
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {studentMenuItems.map((item) => (
+              {adminMenuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton 
                     asChild 
@@ -142,12 +143,6 @@ export function StudentSidebar() {
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu className="space-y-1">
-                <SidebarMenuItem>
-                  <SidebarMenuButton className="text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent">
-                    <Settings className="h-4 w-4" />
-                    <span className="text-sm">Settings</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton className="text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent">
                     <HelpCircle className="h-4 w-4" />

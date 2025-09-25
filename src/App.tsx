@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { TenantProvider } from "@/contexts/TenantContext";
 import { Layout } from "@/components/layout/Layout";
 import { Landing } from "@/pages/Landing";
 import { Login } from "@/pages/Login";
@@ -30,19 +31,22 @@ import { ContentManagement } from "@/pages/admin/ContentManagement";
 import { FeedbackManagement } from "@/pages/admin/FeedbackManagement";
 import { SystemLogs } from "@/pages/admin/SystemLogs";
 import { AdminProfile } from "@/pages/admin/AdminProfile";
+import { TenantSetup } from "@/pages/TenantSetup";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </TooltipProvider>
+      <TenantProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </TooltipProvider>
+      </TenantProvider>
     </AuthProvider>
   </QueryClientProvider>
 );
@@ -50,7 +54,7 @@ const App = () => (
 const AppRoutes = () => {
   // Protected Route Component
   const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-    const { isAuthenticated, isLoading } = useAuth();
+    const { isAuthenticated, isLoading, needsTenantSetup } = useAuth();
     
     if (isLoading) {
       return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
@@ -58,6 +62,10 @@ const AppRoutes = () => {
     
     if (!isAuthenticated) {
       return <Navigate to="/login" replace />;
+    }
+
+    if (needsTenantSetup) {
+      return <Navigate to="/tenant-setup" replace />;
     }
     
     return <>{children}</>;
@@ -89,6 +97,9 @@ const AppRoutes = () => {
         <Route path="/register/student" element={<PublicRoute><StudentRegister /></PublicRoute>} />
         <Route path="/register/counselor" element={<PublicRoute><CounselorRegister /></PublicRoute>} />
         <Route path="/register/professional" element={<PublicRoute><ProfessionalRegister /></PublicRoute>} />
+        
+        {/* Tenant Setup Route */}
+        <Route path="/tenant-setup" element={<TenantSetup />} />
         
         {/* Protected Routes */}
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

@@ -1,4 +1,6 @@
 import { Navbar } from "@/components/ui/navbar";
+import { TenantSelector } from "@/components/tenant/TenantSelector";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface LayoutProps {
   children: React.ReactNode;

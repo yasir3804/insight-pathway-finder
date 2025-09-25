@@ -10,6 +10,8 @@ import {
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/contexts/AuthContext";
+import { TenantSelector } from "@/components/tenant/TenantSelector";
+import { CreateTenantDialog } from "@/components/tenant/CreateTenantDialog";
 import { 
   Brain, 
   User, 
@@ -79,6 +81,8 @@ export const Navbar = () => {
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
+                <TenantSelector />
+                <CreateTenantDialog />
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">

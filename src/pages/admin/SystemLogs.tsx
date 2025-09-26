@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { usePagination } from "@/hooks/usePagination";
 import { Search, Download, RefreshCw, AlertTriangle, Info, CheckCircle2, XCircle } from "lucide-react";
 
 const mockLogs = [
@@ -59,6 +61,28 @@ export const SystemLogs = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [levelFilter, setLevelFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
+
+  const filteredLogs = mockLogs.filter((log) => {
+    const matchesSearch = log.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         log.source.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesLevel = levelFilter === "all" || log.level.toLowerCase() === levelFilter;
+    const matchesCategory = categoryFilter === "all" || log.category.toLowerCase() === categoryFilter;
+    
+    return matchesSearch && matchesLevel && matchesCategory;
+  });
+
+  const {
+    currentItems: paginatedLogs,
+    currentPage,
+    totalPages,
+    totalItems,
+    goToPage,
+    hasNextPage,
+    hasPreviousPage
+  } = usePagination({
+    data: filteredLogs,
+    itemsPerPage: 8
+  });
 
   const getLevelColor = (level: string) => {
     switch (level.toLowerCase()) {
@@ -222,7 +246,7 @@ export const SystemLogs = () => {
 
               {/* Logs List */}
               <div className="space-y-2">
-                {mockLogs.map((log) => (
+                {paginatedLogs.map((log) => (
                   <div key={log.id} className="border rounded-lg p-4 hover:bg-muted/30 transition-colors font-mono text-sm">
                     <div className="flex items-start gap-3">
                       {getLevelIcon(log.level)}
@@ -272,8 +296,64 @@ export const SystemLogs = () => {
                   </p>
                 </CardContent>
               </Card>
-            ))}
-          </div>
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-between mt-6">
+                  <p className="text-sm text-muted-foreground">
+                    Showing {Math.min((currentPage - 1) * 8 + 1, totalItems)} to{" "}
+                    {Math.min(currentPage * 8, totalItems)} of {totalItems} logs
+                  </p>
+                  <Pagination>
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious 
+                          onClick={() => goToPage(currentPage - 1)}
+                          className={!hasPreviousPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                      
+                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        const pageNum = currentPage <= 3 ? i + 1 : currentPage - 2 + i;
+                        if (pageNum > totalPages) return null;
+                        
+                        return (
+                          <PaginationItem key={pageNum}>
+                            <PaginationLink
+                              onClick={() => goToPage(pageNum)}
+                              isActive={currentPage === pageNum}
+                              className="cursor-pointer"
+                            >
+                              {pageNum}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      })}
+                      
+                      {totalPages > 5 && currentPage < totalPages - 2 && (
+                        <PaginationItem>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      )}
+                      
+                      <PaginationItem>
+                        <PaginationNext 
+                          onClick={() => goToPage(currentPage + 1)}
+                          className={!hasNextPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
+                </div>
+              )}
+
+              {filteredLogs.length === 0 && (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground">No logs found matching your criteria.</p>
+                </div>
+              )}
 
           <Card>
             <CardHeader>

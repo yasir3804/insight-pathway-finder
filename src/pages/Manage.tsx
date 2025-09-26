@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { usePagination } from "@/hooks/usePagination";
 import { useAuth } from "@/contexts/AuthContext";
 import { 
   Users, 
@@ -123,6 +125,16 @@ export const Manage = () => {
     const matchesSearch = test.title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = testFilter === "all" || test.status === testFilter;
     return matchesSearch && matchesFilter;
+  });
+
+  const userPagination = usePagination({
+    data: filteredUsers,
+    itemsPerPage: 10
+  });
+
+  const testPagination = usePagination({
+    data: filteredTests,
+    itemsPerPage: 10
   });
 
   const getStatusBadge = (status: string) => {
@@ -264,7 +276,7 @@ export const Manage = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredUsers.map((user) => (
+                  {userPagination.currentItems.map((user) => (
                     <TableRow key={user.id}>
                       <TableCell>
                         <div className="flex items-center">
@@ -299,6 +311,50 @@ export const Manage = () => {
                   ))}
                 </TableBody>
               </Table>
+
+              {/* Users Pagination */}
+              {userPagination.totalPages > 1 && (
+                <div className="flex items-center justify-between mt-6">
+                  <p className="text-sm text-muted-foreground">
+                    Showing {Math.min((userPagination.currentPage - 1) * 10 + 1, userPagination.totalItems)} to{" "}
+                    {Math.min(userPagination.currentPage * 10, userPagination.totalItems)} of {userPagination.totalItems} users
+                  </p>
+                  <Pagination>
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious 
+                          onClick={() => userPagination.goToPage(userPagination.currentPage - 1)}
+                          className={!userPagination.hasPreviousPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                      
+                      {Array.from({ length: Math.min(5, userPagination.totalPages) }, (_, i) => {
+                        const pageNum = userPagination.currentPage <= 3 ? i + 1 : userPagination.currentPage - 2 + i;
+                        if (pageNum > userPagination.totalPages) return null;
+                        
+                        return (
+                          <PaginationItem key={pageNum}>
+                            <PaginationLink
+                              onClick={() => userPagination.goToPage(pageNum)}
+                              isActive={userPagination.currentPage === pageNum}
+                              className="cursor-pointer"
+                            >
+                              {pageNum}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      })}
+                      
+                      <PaginationItem>
+                        <PaginationNext 
+                          onClick={() => userPagination.goToPage(userPagination.currentPage + 1)}
+                          className={!userPagination.hasNextPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -347,7 +403,7 @@ export const Manage = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredTests.map((test) => (
+                  {testPagination.currentItems.map((test) => (
                     <TableRow key={test.id}>
                       <TableCell className="font-medium">{test.title}</TableCell>
                       <TableCell>{test.category}</TableCell>
@@ -372,6 +428,50 @@ export const Manage = () => {
                   ))}
                 </TableBody>
               </Table>
+
+              {/* Tests Pagination */}
+              {testPagination.totalPages > 1 && (
+                <div className="flex items-center justify-between mt-6">
+                  <p className="text-sm text-muted-foreground">
+                    Showing {Math.min((testPagination.currentPage - 1) * 10 + 1, testPagination.totalItems)} to{" "}
+                    {Math.min(testPagination.currentPage * 10, testPagination.totalItems)} of {testPagination.totalItems} tests
+                  </p>
+                  <Pagination>
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious 
+                          onClick={() => testPagination.goToPage(testPagination.currentPage - 1)}
+                          className={!testPagination.hasPreviousPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                      
+                      {Array.from({ length: Math.min(5, testPagination.totalPages) }, (_, i) => {
+                        const pageNum = testPagination.currentPage <= 3 ? i + 1 : testPagination.currentPage - 2 + i;
+                        if (pageNum > testPagination.totalPages) return null;
+                        
+                        return (
+                          <PaginationItem key={pageNum}>
+                            <PaginationLink
+                              onClick={() => testPagination.goToPage(pageNum)}
+                              isActive={testPagination.currentPage === pageNum}
+                              className="cursor-pointer"
+                            >
+                              {pageNum}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      })}
+                      
+                      <PaginationItem>
+                        <PaginationNext 
+                          onClick={() => testPagination.goToPage(testPagination.currentPage + 1)}
+                          className={!testPagination.hasNextPage ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
